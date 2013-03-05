@@ -1,0 +1,66 @@
+package questionPckg;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+public class DBConnection {
+	public static ResultSet rs;
+	public static Statement stmt;
+	public static Connection con;
+
+	public DBConnection() {
+		con = (Connection) MyDB.getConnection(); 
+		try {
+			stmt = con.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Returns an arraylist of the products in database table
+	 * @return
+	 
+	public static ArrayList<Product> getProductList() {
+		ArrayList<Product> prodList = new ArrayList<Product>();
+		try {
+			rs = stmt.executeQuery("SELECT * FROM products;");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//now lets add the names to a list
+		try {
+			while(rs.next()) {
+				String ID = rs.getString("productid");
+				String name = rs.getString("name");
+				String image = rs.getString("imagefile");
+				double price = rs.getDouble("price");
+				Product prod = new Product(ID, name, image, price);
+				prodList.add(prod);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prodList;
+	}
+	
+	
+	/*
+	public static void main(String[] args) {
+
+		DBconnection myCon = new DBconnection();
+		ArrayList<Product> myNameList = myCon.getProductList();
+		for (int i = 0; i<myNameList.size(); i++){
+			System.out.println(myNameList.get(i).getName());
+		}
+		
+	}
+	*/
+	
+
+}
